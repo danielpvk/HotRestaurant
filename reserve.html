@@ -79,35 +79,30 @@
 	<script type="text/javascript">
 
 
-	var currentURL = window.location.origin;
-
 		$(".submit").on("click", function (event) {
-			 event.preventDefault();
-
+			event.preventDefault();
 			var newReservation = {
-			customerName: $('#reserve_name').val().trim(),
-			phoneNumber: $('#reserve_phone').val().trim(),
-			customerEmail: $('#reserve_email').val().trim(),
-			customerID: $('#reserve_uniqueID').val().trim()
+			name: $('#reserve_name').val().trim(),
+			phone: $('#reserve_phone').val().trim(),
+			email: $('#reserve_email').val().trim(),
+			uniqueID: $('#reserve_uniqueID').val().trim()
 		};
 
 		console.log(newReservation);
 
 
 
-	$.post(currentURL + "/reserve", newReservation,
+	$.post("/reserve", newReservation,
 	  function(data){
-			console.log("DATA");
-			console.log(data);
-		 	console.log(data==true);
+		
 
-		if(data == true){
-	  		alert("Yay! You are officially booked!")
-	  	}
+		// if(data){
+	  	// 	alert("Yay! You are officially booked!");
+	  	// }else{
 
-	  	if(data == false){
-	  		alert("Sorry you are on the wait list")
-		  }
+		// 	  alert("Sorry you are on the wait list");
+		//   }
+	  
 
   			$('#reserve_name').val("");
 			$('#reserve_phone').val("");
