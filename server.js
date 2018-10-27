@@ -9,13 +9,7 @@ app.use(express.json());
 
 
 var reservations = [
-    {
-      tableNumber: 1,
-      name: " ",
-      phone: "",
-      email: "" ,
-      uniqueID: 100
-    },
+   
   ];
 
   app.get("/", function(req, res) {
@@ -44,6 +38,17 @@ app.get("/reserve/:reservations", function(req, res) {
   return res.json(reservations);
 });
 
+app.post("/reserve", function (req, res){
+
+  let newReservation = req.body;
+  console.log(newReservation);
+
+  reservations.push(newReservation);
+  
+  res.json(newReservation);
+
+
+});
 
 
 // Server Init
