@@ -33,6 +33,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">Current Reservations</h4>
+
 					</div>
 					<div class="panel-body" id="tableSection">
 					</div>
@@ -59,5 +60,34 @@
 
 	</div>
 
+	<script type="text/javascript">
+
+
+		
+
+	$(document).ready(function () {
+		  $.get("/reserve/:reservations", function(data) {
+			if (data) {
+
+			for (var i=0; i<data.length; i++){
+
+				// Create the HTML Well (Section) and Add the table content for each reserved table
+					var tableSection = $("<div>");
+					tableSection.addClass('reserved');
+					tableSection.attr('id', 'table-' + i+1)
+					$('#tableSection').append(tableSection);
+					var tableNumber = i + 1;
+					// Then display the remaining fields in the HTML (Section Name, Date, URL)
+					$("#table-"+ i+1).append('<h2><span class="label label-primary">' + tableNumber + "</span> | " + data[i].uniqueID + "/" + data[i].name +  "</h2>");
+					}
+			
+			}
+			else {
+			  $("#table").text("Not reservations found.");
+			}
+		  });
+		});
+	  </script>
+	
 </body>
 </html>

@@ -76,6 +76,48 @@
 
 	</div>
 
+	<script type="text/javascript">
+
+
+	var currentURL = window.location.origin;
+
+		$(".submit").on("click", function (event) {
+			 event.preventDefault();
+
+			var newReservation = {
+			customerName: $('#reserve_name').val().trim(),
+			phoneNumber: $('#reserve_phone').val().trim(),
+			customerEmail: $('#reserve_email').val().trim(),
+			customerID: $('#reserve_uniqueID').val().trim()
+		};
+
+		console.log(newReservation);
+
+
+
+	$.post(currentURL + "/reserve", newReservation,
+	  function(data){
+			console.log("DATA");
+			console.log(data);
+		 	console.log(data==true);
+
+		if(data == true){
+	  		alert("Yay! You are officially booked!")
+	  	}
+
+	  	if(data == false){
+	  		alert("Sorry you are on the wait list")
+		  }
+
+  			$('#reserve_name').val("");
+			$('#reserve_phone').val("");
+			$('#reserve_email').val("");
+			$('#reserve_uniqueID').val("");
+			
+	  });
+
+			});
+		  </script>
 </body>
 </html>
 
