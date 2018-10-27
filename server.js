@@ -12,6 +12,10 @@ var reservations = [
    
   ];
 
+  var waitingList = [
+   
+  ];
+
   app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "index.html"));
   });
@@ -29,23 +33,45 @@ var reservations = [
 app.get("/reserve/:reservations", function(req, res) {
   var reserve = req.params.reservations;
 
-  console.log("reserve");
-  console.log(reserve);
+
   console.log("Reservations");
   console.log(reservations);
+  
 
 
   return res.json(reservations);
 });
 
+app.get("reserve/espera/:waitingList", function(req, res) {
+  var waiting = req.params.waitingList;
+
+ 
+  console.log("Waiting List");
+  console.log(waitingList);
+
+
+  return res.json(waitingList);
+});
+
 app.post("/reserve", function (req, res){
-
-  let newReservation = req.body;
-  console.log(newReservation);
-
-  reservations.push(newReservation);
+  if (reservations.length<2){
+    let newReservation = req.body;
+    console.log(newReservation);
   
-  res.json(newReservation);
+    reservations.push(newReservation);
+    
+    res.json(newReservation);
+
+  
+  }else{
+    let newReservation = req.body;
+    console.log(newReservation);
+  
+    waitingList.push(newReservation);
+    
+    res.json(false);
+  }
+
 
 
 });

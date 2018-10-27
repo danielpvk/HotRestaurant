@@ -66,7 +66,10 @@
 		
 
 	$(document).ready(function () {
-		  $.get("/reserve/:reservations", function(data) {
+
+		
+		  $.get("/reserve/reservations", function(data) {
+			  console.log("Entre a reserve:reservations")
 			if (data) {
 
 			for (var i=0; i<data.length; i++){
@@ -80,12 +83,35 @@
 					// Then display the remaining fields in the HTML (Section Name, Date, URL)
 					$("#table-"+ i+1).append('<h2><span class="label label-primary">' + tableNumber + "</span> | " + data[i].uniqueID + "/" + data[i].name +  "</h2>");
 					}
-			
+					
 			}
 			else {
 			  $("#table").text("Not reservations found.");
 			}
 		  });
+		  // terminan las 5 mesas y comienza el waiting list
+
+		  $.get("/reserve/espera/", function(dataW) {
+			console.log("Entre al W");
+			console.log(dataW);
+			if (dataW) {
+			for (var x=0; x<dataW.length; x++){
+				// Create the HTML Well (Section) and Add the table content for each reserved table
+					var tableSectionW = $("<div>");
+					tableSectionW.addClass('reserved-w');
+					tableSectionW.attr('id', 'table-w' + x+1)
+					$('#waitlistSection').append(tableSectionW);
+					var tableNumber = x + 1;
+					// Then display the remaining fields in the HTML (Section Name, Date, URL)
+					$("#table-w"+ x+1).append('<h2><span class="label label-primary">' + tableNumber + "</span> | " + dataW[x].uniqueID + "/" + dataW[x].name +  "</h2>");
+					}
+			
+			}
+			else {
+			  $("#table-w").text("Not reservations found.");
+			}
+		  });
+
 		});
 	  </script>
 	
